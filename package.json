@@ -1,6 +1,6 @@
 {
-  "name": "vuejs3-intermediate",
-  "version": "0.1.0",
+  "name": "vue3-1dprinter",
+  "version": "0.2.0",
   "private": true,
   "scripts": {
     "serve": "vue-cli-service serve",
@@ -8,8 +8,12 @@
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
+    "@fullhuman/postcss-purgecss": "^6.0.0",
+    "autoprefixer": "^10.4.19",
     "core-js": "^3.8.3",
-    "vue": "^3.2.13"
+    "tailwindcss": "^3.4.4",
+    "vue": "^3.2.13",
+    "vue-router": "^4.3.3"
   },
   "devDependencies": {
     "@babel/core": "^7.12.16",
