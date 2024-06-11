@@ -22,11 +22,11 @@
       </div>
     </div>
 
-    <a v-if="showDetailsButton" :href="`product/${id}`">
+    <RouterLink v-if="showDetailsButton" :to="`products/${id}`">
       <button class="w-1/2 bg-white border border-solid border-black text-black py-2 px-4">
         Details
       </button>
-    </a>
+    </RouterLink>
     <button
       @click="addToCart"
       class="w-1/2 bg-black border border-solid border-black text-white py-2 px-4"

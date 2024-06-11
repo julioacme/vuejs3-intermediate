@@ -36,8 +36,8 @@
 </template>
 
 <script>
-import CheckoutTable from '@/components/CheckoutTable.vue';
-import FormInput from '@/components/FormInput.vue';
+import CheckoutTable from '@/components/CheckoutTable.vue'
+import FormInput from '@/components/FormInput.vue'
 
 // import emailValidator from '@/validators/emailValidator';
 // import phoneValidator from '@/validators/phoneValidator';
@@ -52,7 +52,7 @@ export default {
     submitOrder() {
       // if form is valid
       // Here you should send the order to the database
-      console.log('Order:');
+      console.log('Order:')
       // and after that go to the thank you page
     },
   },
