@@ -1,4 +1,7 @@
-import { createMemoryHistory, createRouter } from 'vue-router'
+import { createWebHistory, createRouter } from 'vue-router'
+import HomeView from './pages/HomeView'
+import ProductsView from './pages/ProductsView'
+import ErrorView from './pages/ErrorView'
 
 export const pages = {
   HOME: '/',
@@ -10,10 +13,30 @@ export const pages = {
 };
 
 const routes = [
+  {
+    path: pages.HOME,
+    name: 'Home',
+    component: HomeView,
+  },
+  {
+    path: pages.CHECKOUT,
+    name: 'Checkout',
+    component: () => import(/* webpackChunkName: "checkout" */ './pages/CheckoutView.vue'),
+  },
+  {
+    path: pages.PRODUCTS,
+    name: 'Products',
+    component: ProductsView,
+  },
+  {
+    path: '/:pathMatch(.*)*',
+    name: 'Error',
+    component: ErrorView,
+  },
 ]
 
 const router = createRouter({
-  history: createMemoryHistory(),
+  history: createWebHistory(process.env.BASE_URL),
   routes,
 })
 

@@ -43,7 +43,7 @@ import FormInput from '@/components/FormInput.vue';
 // import phoneValidator from '@/validators/phoneValidator';
 
 export default {
-  name: 'Checkout',
+  name: 'CheckoutView',
   components: {
     CheckoutTable,
     FormInput,
