@@ -17,10 +17,28 @@
       }"
     />
 
-    <form class="font-sans text-sm rounded w-full max-w-md mx-auto my-8 px-8 pt-6 pb-8" novalidate>
-      <FormInput error="" field-id="email" placeholder="Email" label="Email" type="email" />
+    <form
+      @submit.prevent="submitOrder"
+      class="font-sans text-sm rounded w-full max-w-md mx-auto my-8 px-8 pt-6 pb-8"
+      novalidate
+    >
+      <FormInput
+        :value="email"
+        :error="emailError"
+        field-id="email"
+        placeholder="Email"
+        label="Email"
+        type="email"
+        @inputChanged="handleChanged" />
 
-      <FormInput error="" field-id="phone" placeholder="Phone" label="Phone" type="tel" />
+      <FormInput
+        :value="phone"
+        :error="phoneError"
+        field-id="phone"
+        placeholder="Phone"
+        label="Phone"
+        type="tel"
+        @inputChanged="handleChanged" />
 
       <div class="flex items-center justify-between">
         <button class="w-full bg-black hover:bg-black text-white py-2 px-4" type="submit">
@@ -39,8 +57,8 @@
 import CheckoutTable from '@/components/CheckoutTable.vue'
 import FormInput from '@/components/FormInput.vue'
 
-// import emailValidator from '@/validators/emailValidator';
-// import phoneValidator from '@/validators/phoneValidator';
+import emailValidator from '@/validators/emailValidator';
+import phoneValidator from '@/validators/phoneValidator';
 
 export default {
   name: 'CheckoutView',
@@ -48,12 +66,33 @@ export default {
     CheckoutTable,
     FormInput,
   },
+  data() {
+    return {
+      email: '',
+      phone: '',
+      shouldValidate: false,
+    }
+  },
+  computed: {
+    phoneError() {
+      return this.shouldValidate ? phoneValidator(this.phone) : ''
+    },
+    emailError() {
+      return this.shouldValidate ? emailValidator(this.email) : ''
+    },
+    formIsValid() {
+      return this.phoneError === '' && this.emailError === ''
+    },
+  },
   methods: {
     submitOrder() {
-      // if form is valid
-      // Here you should send the order to the database
-      console.log('Order:')
-      // and after that go to the thank you page
+      this.shouldValidate = true
+      if (this.formIsValid) {
+        this.$router.push('/thanks')
+      }
+    },
+    handleChanged(newValue) {
+      this[newValue.field] = newValue.value
     },
   },
 };

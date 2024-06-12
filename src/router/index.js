@@ -1,13 +1,12 @@
 import { createWebHistory, createRouter } from 'vue-router'
 import HomeView from '../pages/HomeView'
 import ErrorView from '../pages/ErrorView'
-import SingleProduct from '../pages/SingleProduct.vue'
 
 export const pages = {
   HOME: '/',
   CHECKOUT: '/checkout',
   PRODUCTS: '/products',
-  SINGLE_PRODUCT: '/products', // products/{id}
+  SINGLE_PRODUCT: '/products',
   ERROR: '/404',
   THANKS: '/thanks',
 }
@@ -31,7 +30,12 @@ const routes = [
   {
     path: `${pages.SINGLE_PRODUCT}/:id`,
     name: 'Product Detail',
-    component: SingleProduct,
+    component: () => import(/* webpackChunkName: "single_product" */ '../pages/SingleProduct.vue'),
+  },
+  {
+    path: pages.THANKS,
+    name: 'Thank you',
+    component: () => import(/* webpackChunkName: "thanks" */ '../pages/ThanksView.vue'),
   },
   {
     path: '/:pathMatch(.*)*',

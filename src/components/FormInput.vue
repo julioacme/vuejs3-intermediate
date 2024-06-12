@@ -6,12 +6,13 @@
       :id="fieldId"
       :type="type"
       :placeholder="placeholder"
+      :value="value"
     />
     <label
       class="absolute block text-gray-700 top-0 left-0 w-full px-3 py-2 leading-normal"
       :for="fieldId"
     >
-      <span>{{ label }}</span> <span v-if="error" class="text-red-600">- {{ error }} </span>
+      <span v-if="value" >{{ label }}</span> <span v-if="error" class="text-red-600">- {{ error }} </span>
     </label>
   </div>
 </template>
@@ -21,7 +22,10 @@ export default {
   props: ['label', 'type', 'fieldId', 'placeholder', 'value', 'error'],
   methods: {
     emitChange(e) {
-      this.$emit('input', e.target.value);
+      this.$emit(
+        'inputChanged',
+        { field: this.fieldId, value: e.target.value }
+      );
     },
   },
 };
