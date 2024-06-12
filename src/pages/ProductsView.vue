@@ -20,8 +20,9 @@
 import { axiosMixin } from '@/mixins/axios-mixin'
 import ProductWidget from '@/components/ProductWidget.vue'
 import LoadingAnimation from '@/components/LoadingAnimation.vue'
+import { mapMutations } from 'vuex'
 // Public testimonials data could be found at https://api.jsonbin.io/v3/b/665a1b62e41b4d34e4fc9376
-// Private testimonials data could be found at https://api.jsonbin.io/v3/b/6668b917e41b4d34e401f3f1
+// Private testimonials data could be found at https://api.jsonbin.io/v3/b/666906c7acd3cb34a85644f1
 // for private testimonials, axios config already has a valid token (src/plugins/axios.js)
 
 export default {
@@ -36,12 +37,13 @@ export default {
       loading: true,
       error: false,
       arrayName: 'products',
-      endpoint: '/6668b917e41b4d34e401f3f1',
+      endpoint: '/666906c7acd3cb34a85644f1',
     }
   },
   async mounted() {
     // Look into src/mixins/axios-mixin.js how does fetchData is working
     await this.fetchData()
+    this.setProducts(this.products)
     this.loading = false
   },
   computed: {
@@ -57,6 +59,9 @@ export default {
     },
   },
   methods: {
+    ...mapMutations({
+      setProducts: 'setProducts'
+    }),
     isOdd(index) {
       return index % 2 === 0
     }

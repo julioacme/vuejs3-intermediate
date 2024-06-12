@@ -1,35 +1,71 @@
 <template>
   <div class="container min-h-screen">
-    <a href="/products">
+    <router-link to="/products">
       ← Back to Products
-    </a>
+    </router-link>
 
-    <LoadingAnimation />
+    <LoadingAnimation v-if="loading" />
 
     <ProductWidget
-      :id="1"
-      name="printer"
-      :price="500"
-      picture="printer.jpg"
-      description="lorem ipsum dolor"
+      v-else-if="product"
+      :id="product.id"
+      :name="product.name"
+      :price="product.price"
+      :picture="product.picture"
+      :description="product.description"
       :showDetailsButton="false"
     />
 
-    <div>
+    <div v-if="!product">
       Product not found :(
     </div>
   </div>
 </template>
 
 <script>
-import ProductWidget from '@/components/ProductWidget.vue';
-import LoadingAnimation from '@/components/LoadingAnimation.vue';
+import { mapState, mapGetters, mapMutations } from 'vuex'
+import { axiosMixin } from '@/mixins/axios-mixin'
+import ProductWidget from '@/components/ProductWidget.vue'
+import LoadingAnimation from '@/components/LoadingAnimation.vue'
 
 export default {
   name: 'SingleProduct',
   components: {
     ProductWidget,
     LoadingAnimation,
+  },
+  mixins: [axiosMixin],
+  data() {
+    return {
+      tempProducts: [],
+      loading: true,
+      arrayName: 'tempProducts',
+      endpoint: '/666906c7acd3cb34a85644f1',
+    }
+  },
+  async mounted() {
+    if (!this.products.length) {
+      await this.fetchData()
+      this.setProducts(this.tempProducts)
+      this.loading = false
+    }
+    this.loading = false;
+  },
+  computed: {
+    ...mapState({
+      products: 'products',
+    }),
+    ...mapGetters({
+      productById: 'productById',
+    }),
+    product() {
+      return this.productById(this.$route.params.id);
+    },
+  },
+  methods: {
+    ...mapMutations({
+      setProducts: 'setProducts',
+    })
   },
 };
 </script>
