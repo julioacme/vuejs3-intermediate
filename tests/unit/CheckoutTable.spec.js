@@ -15,7 +15,7 @@ const itemsInCartById = {
 };
 
 describe('CheckoutTable.vue', () => {
-  fit('renders grand total correctly', () => {
+  it('renders grand total correctly', () => {
     const wrapper = shallowMount(CheckoutTable, {
       propsData: {
         itemsInCartById,
@@ -23,7 +23,7 @@ describe('CheckoutTable.vue', () => {
     });
     const totalNode = wrapper.find('[data-test="grandTotal"]');
 
-    expect(totalNode.text()).toBe('450');
+    expect(totalNode.text()).toBe('$450.00');
   });
 
   it('emits removeItemFromCart when deleteButton is clicked', () => {
