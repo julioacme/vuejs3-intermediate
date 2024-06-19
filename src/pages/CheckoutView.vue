@@ -1,20 +1,11 @@
 <template>
-  <div class="min-h-screen">
+  <div
+    v-if="itemsInCart.length"
+    class="min-h-screen"
+  >
     <CheckoutTable
-      :itemsInCartById="{
-        1: {
-          id: 1,
-          name: 'first item',
-          quantity: 4,
-          price: 100,
-        },
-        2: {
-          id: 2,
-          name: 'second item',
-          quantity: 1,
-          price: 50,
-        },
-      }"
+      :itemsInCart="itemsInCart"
+      @removeItemFromCart="removeFromCart"
     />
 
     <form
@@ -48,17 +39,20 @@
     </form>
   </div>
   <!-- empty cart message -->
-  <!-- <div class="min-h-screen">
+  <div
+    v-else
+    class="min-h-screen">
     <h1 class="text-5xl">You don't have any items in your Cart :(</h1>
-  </div> -->
+  </div>
 </template>
 
 <script>
+import { mapState, mapMutations } from 'vuex'
 import CheckoutTable from '@/components/CheckoutTable.vue'
 import FormInput from '@/components/FormInput.vue'
 
-import emailValidator from '@/validators/emailValidator';
-import phoneValidator from '@/validators/phoneValidator';
+import emailValidator from '@/validators/emailValidator'
+import phoneValidator from '@/validators/phoneValidator'
 
 export default {
   name: 'CheckoutView',
@@ -74,6 +68,9 @@ export default {
     }
   },
   computed: {
+    ...mapState({
+      itemsInCart: 'itemsInCart',
+    }),
     phoneError() {
       return this.shouldValidate ? phoneValidator(this.phone) : ''
     },
@@ -85,6 +82,9 @@ export default {
     },
   },
   methods: {
+    ...mapMutations({
+      deleteItemFromCart: 'deleteItemFromCart',
+    }),
     submitOrder() {
       this.shouldValidate = true
       if (this.formIsValid) {
@@ -93,6 +93,9 @@ export default {
     },
     handleChanged(newValue) {
       this[newValue.field] = newValue.value
+    },
+    removeFromCart(itemId) {
+      this.deleteItemFromCart(itemId)
     },
   },
 };

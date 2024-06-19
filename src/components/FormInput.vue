@@ -25,7 +25,7 @@ export default {
       this.$emit(
         'inputChanged',
         { field: this.fieldId, value: e.target.value }
-      );
+      )
     },
   },
 };

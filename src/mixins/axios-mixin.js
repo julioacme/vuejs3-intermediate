@@ -14,4 +14,4 @@ export const axiosMixin = {
       this[this.arrayName] = response.data.record
     },
   },
-};
+}

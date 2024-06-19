@@ -8,11 +8,7 @@
 
     <ProductWidget
       v-else-if="product"
-      :id="product.id"
-      :name="product.name"
-      :price="product.price"
-      :picture="product.picture"
-      :description="product.description"
+      :product="product"
       :showDetailsButton="false"
     />
 

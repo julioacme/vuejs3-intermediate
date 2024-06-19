@@ -7,11 +7,7 @@
     <ProductWidget
       v-for="product in productsWithAlignment"
       :key="product.id"
-      :id="product.id"
-      :name="product.name"
-      :price="product.price"
-      :picture="product.picture"
-      :right-side-picture="product.rightAlignment"
+      :product="product"
     />
   </div>
 </template>

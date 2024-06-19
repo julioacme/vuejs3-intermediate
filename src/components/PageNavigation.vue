@@ -19,7 +19,7 @@
       <li>
         <RouterLink to="/checkout">
           <button class="bg-black hover:bg-text-gray-800 text-white ml-4 py-2 px-3">
-            Checkout (0)
+            Checkout ({{ itemsInCart.length }})
           </button>
         </RouterLink>
       </li>
@@ -28,5 +28,13 @@
 </template>
 
 <script>
-export default {}
+import { mapState } from 'vuex'
+
+export default {
+  computed: {
+    ...mapState({
+      itemsInCart: 'itemsInCart',
+    })
+  },
+}
 </script>

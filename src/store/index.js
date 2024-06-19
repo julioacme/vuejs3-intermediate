@@ -5,6 +5,7 @@ import * as mutations from './mutations'
 
 const state = {
   products: [],
+  itemsInCart: [],
 }
 
 const store = createStore({

@@ -2,7 +2,7 @@
   <table class="bg-white mb-6 m-auto">
     <tr v-for="item in itemsWithTotals" :key="item.id">
       <td class="border px-8 py-4">{{ item.name }}</td>
-      <td class="border px-8 py-4">{{ item.quantity }} x {{ item.price }}</td>
+      <td class="border px-8 py-4">{{ item.quantity }} x {{ toCurrency(item.price) }}</td>
       <td class="border px-8 py-4">{{ toCurrency(item.priceTotal) }}</td>
       <td class="border px-8 py-4">
         <button
@@ -25,19 +25,22 @@
 </template>
 
 <script>
+import { formatData } from '@/mixins/format-data'
+
 export default {
+  mixins: [formatData],
   props: {
-    itemsInCartById: {
+    itemsInCart: {
       type: Object,
       required: true,
     },
   },
   computed: {
     itemsWithTotals() {
-      const productIds = Object.keys(this.itemsInCartById);
+      const productIds = Object.keys(this.itemsInCart)
 
       return productIds.map((productId) => {
-        const item = this.itemsInCartById[productId];
+        const item = this.itemsInCart[productId]
         return {
           ...item,
           priceTotal: item.quantity * item.price,
@@ -47,17 +50,14 @@ export default {
     grandTotal() {
       let result = 0;
       this.itemsWithTotals.forEach((item) => {
-        result += item.priceTotal;
+        result += item.priceTotal
       });
-      return result;
+      return result
     },
   },
   methods: {
     removeItemFromCart(itemId) {
-      this.$emit('removeItemFromCart', itemId);
-    },
-    toCurrency(value) {
-      return new Intl.NumberFormat('es-MX', { style: 'currency', currency: 'MXN' }).format(value)
+      this.$emit('removeItemFromCart', itemId)
     },
   },
 };
