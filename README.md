@@ -1,5 +1,9 @@
 # 1dprinter (Vue3)
 
+NOTE: This is a Vue3 version of https://github.com/wizelineacademy/vuejs-intermediate
+      Here you can find different branches that covers each chapter of 'Vue.js Intermediate Level' Course
+      (https://myacademy.wizeline.com/#/online-course-player/fddb9bde-f5e4-4e87-88bb-5db71d5daa30)
+
 A [Vue CLI](https://cli.vuejs.org/) project with [TailwindCSS](https://tailwindcss.com/)
 
 For more info on how tailwind was set up click [here](https://markus.oberlehner.net/blog/setting-up-tailwind-css-with-vue/).
