@@ -9,3 +9,7 @@ export const addItemToCart = (state, product) => {
 export const deleteItemFromCart = (state, itemId) => {
   state.itemsInCart = state.itemsInCart.filter( (item) => item.id !== itemId )
 }
+
+export const removeAllItemsFromCart = (state) => {
+  state.itemsInCart = []
+}

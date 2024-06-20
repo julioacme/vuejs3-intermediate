@@ -82,12 +82,13 @@ export default {
     },
   },
   methods: {
-    ...mapMutations({
-      deleteItemFromCart: 'deleteItemFromCart',
-    }),
+    ...mapMutations([
+      'deleteItemFromCart', 'removeAllItemsFromCart'
+    ]),
     submitOrder() {
       this.shouldValidate = true
       if (this.formIsValid) {
+        this.removeAllItemsFromCart()
         this.$router.push('/thanks')
       }
     },

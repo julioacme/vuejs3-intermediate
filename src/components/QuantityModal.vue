@@ -10,7 +10,9 @@
         <FormInput
           :value="quantity"
           :error="quantityError"
-          field-id="quantityInput"
+          field-id="quantity"
+          label="Cantidad"
+          placeholder="Cantidad"
           type="number"
           @inputChanged="handleChanged" />
         <br>
@@ -40,11 +42,12 @@ export default {
   data() {
     return {
       quantity: 0,
+      shouldValidate: false,
     }
   },
   computed: {
     quantityError() {
-      return quantityValidator(this.quantity)
+      return this.shouldValidate ? quantityValidator(this.quantity) : ''
     },
   },
   methods: {
@@ -55,6 +58,7 @@ export default {
       this.$emit('close')
     },
     submitQuantity() {
+      this.shouldValidate = true
       if (this.quantityError === '') {
         this.$emit('submit', this.quantity)
         this.closeModal()
